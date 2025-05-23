@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `item_to_buy` ;
 
 CREATE TABLE IF NOT EXISTS `item_to_buy` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `skuName` VARCHAR(2000) NULL,
+  `sku_name` VARCHAR(2000) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
