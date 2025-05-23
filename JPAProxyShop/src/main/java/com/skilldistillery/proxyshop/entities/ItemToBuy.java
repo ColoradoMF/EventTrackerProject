@@ -20,7 +20,7 @@ public class ItemToBuy {
 	private int id;
 	
 	@Column(name="sku_name")
-	public String skuName;
+	private String skuName;
 
 	public ItemToBuy() {
 		super();

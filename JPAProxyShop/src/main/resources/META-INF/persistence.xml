@@ -4,7 +4,7 @@
 	
 	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 	
-	<class>com.skilldistillery.proxyshop.entities.item_to_buy</class>
+	<class>com.skilldistillery.proxyshop.entities.ItemToBuy</class>
 
     
     <properties>
