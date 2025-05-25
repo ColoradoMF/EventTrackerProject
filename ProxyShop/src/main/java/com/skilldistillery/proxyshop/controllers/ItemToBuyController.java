@@ -18,6 +18,8 @@ public class ItemToBuyController {
 	@Autowired
 	private ItemToBuyService itemToBuyService;
 	
+	private String userName = "mike";
+	
 	@GetMapping("items/{itemId}")
 	public ItemToBuy findById( @PathVariable("itemId") int itemId, HttpServletResponse resp) {
 		

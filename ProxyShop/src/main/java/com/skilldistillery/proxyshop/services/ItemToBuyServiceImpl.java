@@ -17,4 +17,9 @@ public class ItemToBuyServiceImpl implements ItemToBuyService {
 		return itemToBuyRepo.findById(id).orElse(null);
 	}
 
+	@Override
+	public ItemToBuy createItem(String username, int storeId, ItemToBuy newItem) {
+		return null;
+	}
+
 }

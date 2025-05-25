@@ -2,6 +2,7 @@ package com.skilldistillery.proxyshop.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -13,11 +14,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
-class ItemToBuyTest {
+class UserTest {
 	
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private ItemToBuy itemToBuy;
+	private User user;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,33 +33,25 @@ class ItemToBuyTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		itemToBuy = em.find(ItemToBuy.class, 1);
+		user = em.find(User.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		itemToBuy = null;
+		user = null;
 	}
 
 	@Test
-	void test_ItemToBuy_entity_mapping() {
-		assertNotNull(itemToBuy);
-		assertEquals("12", itemToBuy.getSku());
-		assertEquals("Textured Vegetable Protien", itemToBuy.getName());
+	void test_User_entity_mapping() {
+		assertNotNull(user);
+		assertEquals("mike", user.getUsername());
 	}
 
 	@Test
-	void test_ItemToBuy_Store_ManyToOne_mapping() {
-		assertNotNull(itemToBuy);
-		assertNotNull(itemToBuy.getStore());
-		assertEquals(1, itemToBuy.getStore().getId());
-	}
-
-	@Test
-	void test_ItemToBuy_User_ManyToOne_mapping() {
-		assertNotNull(itemToBuy);
-		assertNotNull(itemToBuy.getUser());
-		assertEquals(1, itemToBuy.getUser().getId());
+	void test_User_ItemToBuy_OneToMany_mapping() {
+		assertNotNull(user);
+		assertNotNull(user.getItemsToBuy());
+		assertTrue(user.getItemsToBuy().size() > 0);
 	}
 }
