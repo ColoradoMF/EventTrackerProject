@@ -86,4 +86,13 @@ public class ItemToBuyServiceImpl implements ItemToBuyService {
 		}
 	}
 
+	@Override
+	public boolean deleteItemById(int itemId) {
+		if (itemToBuyRepo.existsById(itemId)) {
+			itemToBuyRepo.deleteById(itemId);
+			return true;
+		}
+		return false;
+	}
+
 }

@@ -1,6 +1,7 @@
 package com.skilldistillery.proxyshop.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -82,7 +83,14 @@ public class ItemToBuyController {
 	public String testParam(@RequestParam(name = "storeId") int storeId) {
 	    return "Received storeId: " + storeId;
 	}
-
-
-
+	
+	@DeleteMapping("items/{id}")
+	public void deleteItem(@PathVariable("id") int id, HttpServletResponse resp) {
+		if (itemToBuyService.deleteItemById(id)) {
+			resp.setStatus(HttpServletResponse.SC_NO_CONTENT); // 204
+		} else {
+			resp.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
+		}
+	}
+	
 }

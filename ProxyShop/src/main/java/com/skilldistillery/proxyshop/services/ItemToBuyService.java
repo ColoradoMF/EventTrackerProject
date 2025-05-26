@@ -13,5 +13,7 @@ public interface ItemToBuyService {
 	ItemToBuy createItem(String username, int storeId, ItemToBuy newItem);
 	
 	ItemToBuy updateItem(String username, int storeId, ItemToBuy updateItem);
+	
+	boolean deleteItemById(int itemId);
 
 }
