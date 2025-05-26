@@ -45,4 +45,29 @@ public class ItemToBuyServiceImpl implements ItemToBuyService {
 		return itemToBuyRepo.saveAndFlush(newItem);
 	}
 
+	@Override
+	public ItemToBuy updateItem(String username, int storeId, ItemToBuy updateItem) {
+	    System.out.println(">>> updateItem() called");
+	    System.out.println(">>> Incoming ID: " + updateItem.getId());
+
+		ItemToBuy existingItem = itemToBuyRepo.findById(updateItem.getId()).orElse(null);
+		
+		if (existingItem == null) {
+	        System.out.println(">>> Item not found with ID: " + updateItem.getId());
+	        return null;
+	    }
+
+	    System.out.println(">>> Found item. Updating fields...");
+		
+		existingItem.setName(updateItem.getName());
+	    existingItem.setSku(updateItem.getSku());
+	    existingItem.setDescription(updateItem.getDescription());
+	    existingItem.setImageUrl(updateItem.getImageUrl());
+	    existingItem.setNeeded(updateItem.getNeeded());
+		
+	    System.out.println(">>> Updated item: " + existingItem);
+	    
+	    return itemToBuyRepo.saveAndFlush(existingItem);
+	}
+
 }

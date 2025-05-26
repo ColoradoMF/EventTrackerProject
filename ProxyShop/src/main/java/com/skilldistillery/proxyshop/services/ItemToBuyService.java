@@ -11,5 +11,7 @@ public interface ItemToBuyService {
 	List<ItemToBuy> findAll();
 
 	ItemToBuy createItem(String username, int storeId, ItemToBuy newItem);
+	
+	ItemToBuy updateItem(String username, int storeId, ItemToBuy updateItem);
 
 }

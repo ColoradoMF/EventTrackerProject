@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,4 +54,27 @@ public class ItemToBuyController {
 		}
 		return null;
 	}
+	
+	@PutMapping("items/{id}")
+	public ItemToBuy updateItem(@PathVariable int id,
+	                            @RequestParam(name = "storeId") int storeId,
+	                            @RequestBody ItemToBuy updatedItem,
+	                            HttpServletResponse resp) {
+	    updatedItem.setId(id); // ensure path ID overrides anything in JSON body
+
+	    ItemToBuy result = itemToBuyService.updateItem("mike", storeId, updatedItem);
+
+	    if (result == null) {
+	        resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+	    }
+
+	    return result;
+	}
+	
+	@PutMapping("test")
+	public String testPut() {
+	    return "PUT method is working";
+	}
+
+
 }
