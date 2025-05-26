@@ -47,8 +47,11 @@ public class ItemToBuyServiceImpl implements ItemToBuyService {
 
 	@Override
 	public ItemToBuy updateItem(String username, int storeId, ItemToBuy updateItem) {
-	    System.out.println(">>> updateItem() called");
-	    System.out.println(">>> Incoming ID: " + updateItem.getId());
+		System.out.println(">>> Entered updateItem()");
+		System.out.println(">>> ID: " + updateItem.getId());
+		System.out.println(">>> Name: " + updateItem.getName());
+		
+		
 
 		ItemToBuy existingItem = itemToBuyRepo.findById(updateItem.getId()).orElse(null);
 		
@@ -56,6 +59,13 @@ public class ItemToBuyServiceImpl implements ItemToBuyService {
 	        System.out.println(">>> Item not found with ID: " + updateItem.getId());
 	        return null;
 	    }
+		
+		Store store = storeRepo.findById(storeId).orElse(null);
+	    if (store == null) {
+	        System.out.println(">>> Store not found with ID " + storeId);
+	        return null;
+	    }
+
 
 	    System.out.println(">>> Found item. Updating fields...");
 		
@@ -67,7 +77,13 @@ public class ItemToBuyServiceImpl implements ItemToBuyService {
 		
 	    System.out.println(">>> Updated item: " + existingItem);
 	    
-	    return itemToBuyRepo.saveAndFlush(existingItem);
+	    try {
+			return itemToBuyRepo.saveAndFlush(existingItem);
+		} catch (Exception e) {
+			System.err.println(">>> Error during save: " + e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

@@ -56,11 +56,13 @@ public class ItemToBuyController {
 	}
 	
 	@PutMapping("items/{id}")
-	public ItemToBuy updateItem(@PathVariable int id,
-	                            @RequestParam(name = "storeId") int storeId,
+	public ItemToBuy updateItem(@PathVariable("id") int id,
+	                            @RequestParam("storeId") int storeId,
 	                            @RequestBody ItemToBuy updatedItem,
 	                            HttpServletResponse resp) {
 	    updatedItem.setId(id); // ensure path ID overrides anything in JSON body
+	    
+	    System.out.println("Updating item with ID: " + id + " and storeId: " + storeId);
 
 	    ItemToBuy result = itemToBuyService.updateItem("mike", storeId, updatedItem);
 
@@ -75,6 +77,12 @@ public class ItemToBuyController {
 	public String testPut() {
 	    return "PUT method is working";
 	}
+	
+	@PutMapping("testparam")
+	public String testParam(@RequestParam(name = "storeId") int storeId) {
+	    return "Received storeId: " + storeId;
+	}
+
 
 
 }
