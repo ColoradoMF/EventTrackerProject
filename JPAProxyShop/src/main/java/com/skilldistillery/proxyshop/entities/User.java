@@ -3,6 +3,8 @@ package com.skilldistillery.proxyshop.entities;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +27,7 @@ public class User {
 	private String role;
 	
 	@OneToMany(mappedBy = "user")
+	@JsonIgnore
 	private List<ItemToBuy> itemsToBuy;
 
 	public User() {
