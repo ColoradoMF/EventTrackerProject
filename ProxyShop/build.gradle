@@ -8,6 +8,13 @@ plugins {
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
+war {
+  // Gradle will replace the variable archivesBaseName
+  // with our app name, as defined in settings.gradle
+  archiveFileName = "${rootProject.name}.war"
+  destinationDirectory = file("../")     // Project workspace directory
+}
+
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
@@ -29,9 +36,6 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
-tasks.withType(JavaCompile) {
-    options.compilerArgs << "-parameters"
-}
 
 tasks.named('test') {
 	useJUnitPlatform()

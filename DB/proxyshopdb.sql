@@ -114,7 +114,7 @@ COMMIT;
 START TRANSACTION;
 USE `proxyshopdb`;
 INSERT INTO `item_to_buy` (`id`, `sku`, `user_id`, `store_id`, `name`, `description`, `image_url`, `last_purchased`, `needed`) VALUES (1, '12', 1, 1, 'Textured Vegetable Protien', NULL, NULL, NULL, NULL);
-INSERT INTO `item_to_buy` (`id`, `sku`, `user_id`, `store_id`, `name`, `description`, `image_url`, `last_purchased`, `needed`) VALUES (2, '12345', 2, 2, '55 gallon drum of mayo', NULL, NULL, NULL, NULL);
+INSERT INTO `item_to_buy` (`id`, `sku`, `user_id`, `store_id`, `name`, `description`, `image_url`, `last_purchased`, `needed`) VALUES (2, '12345', 2, 2, '55 gallon drum of Mayo', NULL, NULL, NULL, NULL);
 
 COMMIT;
 
