@@ -39,12 +39,14 @@ function displayStores(storeList) {
 	if (!Array.isArray(storeList)) {
 		return;
 	}
+	tbody.innerHTML = "";
+	
 	for (let store of storeList) {
 		let tr = document.createElement('tr');
 		tbody.appendChild(tr);
 		let td = document.createElement('td');
 		let img = document.createElement('img');
-		img.src = dest.imageUrl;
+		img.src = store.imageUrl;
 		img.alt = 'Image of ' + store.name;
 		img.classList.add('storeThumbnail')
 		

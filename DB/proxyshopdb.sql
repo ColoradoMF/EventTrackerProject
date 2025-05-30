@@ -93,6 +93,9 @@ START TRANSACTION;
 USE `proxyshopdb`;
 INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (1, 'mike', 'mike', 1, NULL);
 INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (2, 'rob', 'rob', 1, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (3, 'matt', 'matt', 1, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (4, 'mark', 'mark', 1, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (5, 'murk', 'murk', 1, NULL);
 
 COMMIT;
 
@@ -102,8 +105,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `proxyshopdb`;
-INSERT INTO `store` (`id`, `name`, `logo_image_url`, `description`) VALUES (1, 'Trader Joe\'s', NULL, 'Good stuff');
-INSERT INTO `store` (`id`, `name`, `logo_image_url`, `description`) VALUES (2, 'Costco', NULL, 'Big stuff');
+INSERT INTO `store` (`id`, `name`, `logo_image_url`, `description`) VALUES (1, 'Trader Joe\'s', 'https://teddi.sjf.edu/wp-content/uploads/2023/02/Trader-Joes-Logo.png', 'Good stuff');
+INSERT INTO `store` (`id`, `name`, `logo_image_url`, `description`) VALUES (2, 'Costco', 'https://bfasset.costco-static.com/56O3HXZ9/at/wkgcrwxgt5bt39wg63kgmqr/Costco-Logo-Registered.png?auto=webp&format=jpg', 'Big stuff');
+INSERT INTO `store` (`id`, `name`, `logo_image_url`, `description`) VALUES (3, 'Sam\'s Club', 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Sams_Club.svg', 'Bigger stuff');
+INSERT INTO `store` (`id`, `name`, `logo_image_url`, `description`) VALUES (4, 'BJ\'s Wholesale', 'https://upload.wikimedia.org/wikipedia/commons/4/48/BJs_Wholesale_Club_Logo.svg', 'Biggest stuff');
 
 COMMIT;
 
@@ -113,8 +118,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `proxyshopdb`;
-INSERT INTO `item_to_buy` (`id`, `sku`, `user_id`, `store_id`, `name`, `description`, `image_url`, `last_purchased`, `needed`) VALUES (1, '12', 1, 1, 'Textured Vegetable Protien', NULL, NULL, NULL, NULL);
-INSERT INTO `item_to_buy` (`id`, `sku`, `user_id`, `store_id`, `name`, `description`, `image_url`, `last_purchased`, `needed`) VALUES (2, '12345', 2, 2, '55 gallon drum of Mayo', NULL, NULL, NULL, NULL);
+INSERT INTO `item_to_buy` (`id`, `sku`, `user_id`, `store_id`, `name`, `description`, `image_url`, `last_purchased`, `needed`) VALUES (1, '12', 1, 1, 'Textured Vegetable Protien', 'Bob\'s Red Mill TVP', 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcT0bjwnjtcsJmHWYXnh3Ipc6xZG7QNX1n4yd96yYZdVKziqeHQgWiPhl8oX_s2D2H-tcJSIGUL9PQkzHjy_CSyvK3tcT4Zs7YRDvl_3wU9N-m_aLxx_mFsq', NULL, 1);
+INSERT INTO `item_to_buy` (`id`, `sku`, `user_id`, `store_id`, `name`, `description`, `image_url`, `last_purchased`, `needed`) VALUES (2, '12345', 2, 2, '55 gallon drum of Mayo', 'Industrial strength', 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcT-G4q81ovB72i7wFRIIe6CzCbb4V0CHKB2vwqTFgYyV1QFSUwg6hLmVCWsm87NeCZewLJcG6BwLYqiM3ngJmGCcVjWrsoU8rQ3r5f_FVNF7JiAH3NT2eJV3ZyeNzML64NAwe4CaYJuF7Q&usqp=CAc', NULL, 1);
+INSERT INTO `item_to_buy` (`id`, `sku`, `user_id`, `store_id`, `name`, `description`, `image_url`, `last_purchased`, `needed`) VALUES (3, '123', 4, 3, 'Thai Hom Mali rice', '25 lbs.', 'https://scene7.samsclub.com/is/image/samsclub/0019396814809_A', NULL, 1);
+INSERT INTO `item_to_buy` (`id`, `sku`, `user_id`, `store_id`, `name`, `description`, `image_url`, `last_purchased`, `needed`) VALUES (4, '1234', 3, 2, 'Sumatran Coffee', '3 lbs.', 'https://m.media-amazon.com/images/I/81nLJX6pRvL.jpg', NULL, 1);
 
 COMMIT;
 
