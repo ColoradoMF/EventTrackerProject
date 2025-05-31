@@ -9,7 +9,15 @@ window.addEventListener('load', function(e) {
 function init() {
 	loadStores();
 	
-		
+	document.addStoreForm.addStoreButton.addEventListener('click', function(event) {
+		event.preventDefault();
+		let newStore = {
+			name: addStoreForm.name.value,
+			description: addStoreForm.description.value,
+			logoImageUrl: addStoreForm.logoImageUrl.value,
+		};
+		addStore(newStore);
+	});
 
 }
 
@@ -115,4 +123,29 @@ function displayStoreDetails(store) {
 	pLogoImageUrl.textContent = 'Logo Image URL: ' + store.logoImageUrl;
 	detailDiv.appendChild(pLogoImageUrl);
 	
+}
+
+function addStore(store) {
+	let url = 'api/stores';
+		let xhr = new XMLHttpRequest();
+		xhr.open('POST', url);
+		// use XHR to POST to api/stores
+		// send will be different, go back one page in the material
+		// send JSON version of that object to xhr.send
+		// set
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === xhr.DONE) {
+				if (xhr.status === 201) {
+					let createdStore = JSON.parse(xhr.responseText);
+					loadStores();
+				} else {
+					displayError('Could not create store');
+				}
+			}
+		};
+		xhr.setRequestHeader("Content-type", "application/json"); // Specify JSON request body
+		let storeJson = JSON.stringify(store); // Convert JS object to JSON string
+		
+		// Pass JSON as request body
+		xhr.send(storeJson);
 }
