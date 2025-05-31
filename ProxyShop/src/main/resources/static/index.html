@@ -8,21 +8,48 @@
 </head>
 <body>
 
-<h1>ProxyShop</h1>
-<h3>Grab that for me!</h3>
+	<h2>ProxyShop</h2>
+	<h4>Select a store to see your friend's list.</h4>
+	<!-- In the next page will see a list of users or items - Grab that for me! -->
 
-
- <!-- open with bootstrap carrosel for the stores --> 
-<div id="storesListDiv"></div>
+	<!-- open with bootstrap carrosel for the stores -->
+	<div id="storesListDiv"></div>
 	<table>
 		<thead>
-			<tr><td>Name</td><td>Location</td></tr>
+			<tr>
+				<td></td>
+				<td></td>
+			</tr>
 		</thead>
 		<tbody id="storeTableBody"></tbody>
-		
+
 	</table>
 
-<div id="newStoreFormDiv"> </div>
+	<h3>Don't see the store above? Add it below:</h3>
+	<div id="newStoreFormDiv"></div>
+	<!-- <div>
+		<label for="Store"></label><br> 
+		<input type="text" name="store" id="store" required />
+
+	</div> -->
+
+	<div>
+		<label for="name">Enter Store Name:</label>
+		<br> <input type="text"name="name" id="name" />
+	</div>
+
+	<div>
+		<label for="description">Enter Store Description:</label><br>
+		<textarea name="description" id="description" rows="3" cols=""></textarea>
+	</div>
+
+	<div>
+		<label for="logoImageUrl">Enter Store logo image url:</label><br> <input
+			type="text" name="logoImageUrl" id="logoImageUrl" />
+	</div>
+
+	<button name="addStoreButton">Add Store</button>
+	</form>
 
 </body>
 </html>

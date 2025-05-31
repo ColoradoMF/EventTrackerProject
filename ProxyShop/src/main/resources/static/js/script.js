@@ -40,34 +40,45 @@ function displayStores(storeList) {
 		return;
 	}
 	tbody.innerHTML = "";
-	
+
 	for (let store of storeList) {
 		let tr = document.createElement('tr');
 		tbody.appendChild(tr);
 		let td = document.createElement('td');
 		let img = document.createElement('img');
-		img.src = store.imageUrl;
+		img.src = store.logoImageUrl;
 		img.alt = 'Image of ' + store.name;
 		img.classList.add('storeThumbnail')
-		
+
 		td.textContent = store.name;
+		tr.appendChild(td);
 		td.appendChild(img);
-		tr.appendChild(td);
-		
+
 		td = document.createElement('td');
-		td.textContent = store.location;
+  		td.textContent = store.location;
 		tr.appendChild(td);
-		
+
 		tr.storeId = store.id;
 		tr.addEventListener('click', function(e) {
 			console.log(e.target.parentElement.storeId)
 			getStoreDetails(e.target.parentElement.storeId);
 		});
 	}
-	
+
 }
 
 function getStoreDetails(storeId) {
 	console.log('Store ID: ' + storeId);
+
+}
+
+function showStoreTable() {
+	let listDiv = document.getElementById('storeListDiv');
+	let detailsDiv = document.getElementById('storeDetailDiv');
+	let newStoreDiv = document.getElementById('newStoreFormDiv');
 	
+function showStoreDetails() {
+	
+}	
+	 
 }
