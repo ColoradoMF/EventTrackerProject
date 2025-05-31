@@ -8,6 +8,8 @@ window.addEventListener('load', function(e) {
 
 function init() {
 	loadStores();
+	
+	let 
 
 }
 
@@ -60,15 +62,13 @@ function displayStores(storeList) {
 
 		tr.storeId = store.id;
 		tr.addEventListener('click', function(e) {
+			e.preventDefault();
 			console.log(e.target.parentElement.storeId)
-			getStoreDetails(e.target.parentElement.storeId);
+			getStoreDetails(storeId);
+			// construct JS object from form input values from film entity ().
+
 		});
 	}
-
-}
-
-function getStoreDetails(storeId) {
-	console.log('Store ID: ' + storeId);
 
 }
 
@@ -77,8 +77,42 @@ function showStoreTable() {
 	let detailsDiv = document.getElementById('storeDetailDiv');
 	let newStoreDiv = document.getElementById('newStoreFormDiv');
 	
-function showStoreDetails() {
+}
 	
-}	
-	 
+function getStoreDetails(storeId) {
+	let url = 'api/stores/' + storeId;
+		let xhr = new XMLHttpRequest();
+		xhr.open('GET', url);
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === xhr.DONE) {
+					if (xhr.status === 200) {
+						let stores = JSON.parse(xhr.responseText);
+						displayStoreDetails(storeObj);
+					} else if (xhr.status === 404) {
+						console.error('Store not found, ID = ' + storeId);
+						displayError('Store not found');
+					} else {
+						console.error('Error retreiving store ' + storeId + ": " + xhr.status);
+					}
+				}
+			};
+			xhr.send();
+}
+
+function displayStoreDetails(store) {
+	let detailDiv = document.getElementById('storeDetailDiv');
+	detailDiv.innerHTML = "";
+	
+	let h2 = document.createElement('h2');
+	h2.textContent = store.name;
+	detailDiv.appendChild(h2);
+	
+	let pDescription = document.createElement('p');
+	pDescription.textContent = 'Description: ' + store.description;
+	detailDiv.appendChild(pDescription);
+	
+	let pLogoImageUrl = document.createElement('p');
+	pLogoImageUrl.textContent = 'Logo Image URL: ' + store.logoImageUrl;
+	detailDiv.appendChild(pLogoImageUrl);
+	
 }
