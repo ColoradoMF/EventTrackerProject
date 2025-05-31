@@ -53,6 +53,7 @@ function displayStores(storeList) {
 
 	for (let store of storeList) {
 		let tr = document.createElement('tr');
+		tr.storeId = store.id;
 		tbody.appendChild(tr);
 		let td = document.createElement('td');
 		let img = document.createElement('img');
@@ -61,23 +62,46 @@ function displayStores(storeList) {
 		img.classList.add('storeThumbnail')
 
 		td.textContent = store.name;
-		tr.appendChild(td);
-		td.appendChild(img);
-
-		td = document.createElement('td');
-  		td.textContent = store.location;
-		tr.appendChild(td);
-
-		tr.storeId = store.id;
-		tr.addEventListener('click', function(e) {
+		td.addEventListener('click', function(e) {
 			e.preventDefault();
 			console.log(e.target.parentElement.storeId)
 			getStoreDetails(store.id);
 			// construct JS object from form input values from film entity ().
 
 		});
+		tr.appendChild(td);
+		td.appendChild(img);
+
+		td = document.createElement('td');
+		td.addEventListener('click', function(e) {
+			e.preventDefault();
+			console.log(e.target.parentElement.storeId)
+			getStoreDetails(store.id);
+			// construct JS object from form input values from film entity ().
+
+		});
+  		td.textContent = store.location;
+		tr.appendChild(td);
+		
+		//delete button in table for each store
+		td = document.createElement('td');
+		let button = document.createElement('button');
+		button.name = "Delete";
+		button.textContent = "Delete Store";
+		td.appendChild(button); 
+		button.addEventListener('click', function(evt) {
+			evt.preventDefault();
+			deleteStore(store.id);
+		})
+		tr.appendChild(td);
+
+
 	}
 
+}
+
+function goToStoreDetails() {
+	
 }
 
 function showStoreTable() {
@@ -148,4 +172,24 @@ function addStore(store) {
 		
 		// Pass JSON as request body
 		xhr.send(storeJson);
+}
+
+function deleteStore(storeId) {
+	let url = 'api/stores/' + storeId;
+			let xhr = new XMLHttpRequest();
+			xhr.open('DELETE', url);
+			// use XHR to POST to api/stores
+			// send will be different, go back one page in the material
+			// send JSON version of that object to xhr.send
+			// set
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === xhr.DONE) {
+					if (xhr.status === 204) {
+						loadStores();
+					} else {
+						displayError('Could not delete store');
+					}
+				}
+			};
+			xhr.send();
 }
