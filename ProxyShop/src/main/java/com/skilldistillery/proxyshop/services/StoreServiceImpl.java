@@ -25,17 +25,20 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public Store createStore(String name, int storeId, Store newStore) {
+	public Store createStore(Store newStore) {
 		return storeRepo.saveAndFlush(newStore);
 	}
 
 	@Override
-	public Store updateStore(String name, int storeId, Store updateStore) {
+	public Store updateStore( int storeId, Store updateStore) {
 		
-		Store existingStore = storeRepo.findById(updateStore.getId()).orElse(null);
-		existingStore.setName(updateStore.getName());
-		existingStore.setLogoImageUrl(updateStore.getLogoImageUrl());
-		existingStore.setDescription(updateStore.getDescription());
+		Store existingStore = storeRepo.findById(storeId).orElse(null);
+		if ( existingStore != null) {
+			existingStore.setName(updateStore.getName());
+			existingStore.setLogoImageUrl(updateStore.getLogoImageUrl());
+			existingStore.setDescription(updateStore.getDescription());
+			return storeRepo.saveAndFlush(existingStore);
+		}
 		return null;
 	}
 

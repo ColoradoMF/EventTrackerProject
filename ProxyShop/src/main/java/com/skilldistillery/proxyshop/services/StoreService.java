@@ -10,9 +10,9 @@ public interface StoreService {
 	
 	List<Store> findAll();
 
-	Store createStore(String name, int storeId, Store newStore);
+	Store createStore(Store newStore);
 	
-	Store updateStore(String name, int storeId, Store updateStore);
+	Store updateStore( int storeId, Store updateStore);
 	
 	boolean deleteStoreById(int storeId);
 

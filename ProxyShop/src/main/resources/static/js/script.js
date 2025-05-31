@@ -9,7 +9,7 @@ window.addEventListener('load', function(e) {
 function init() {
 	loadStores();
 	
-	
+		
 
 }
 

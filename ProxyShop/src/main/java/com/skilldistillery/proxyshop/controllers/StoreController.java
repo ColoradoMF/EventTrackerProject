@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.proxyshop.entities.ItemToBuy;
 import com.skilldistillery.proxyshop.entities.Store;
 import com.skilldistillery.proxyshop.services.StoreService;
 
@@ -37,7 +35,6 @@ public class StoreController {
 		return store;
 	}
 	
-
 	@GetMapping("stores")
 	public List<Store> getAllStores(HttpServletResponse resp) {
 	    List<Store> stores = storeService.findAll();
@@ -50,13 +47,11 @@ public class StoreController {
 
 	
 	@PostMapping("stores")
-	public Store createItem(@RequestParam(name = "storeId") int storeId, 
-								@RequestBody ItemToBuy newItem, 
-								HttpServletResponse resp, 
-								HttpServletRequest req) {
-		
+	public Store createItem( @RequestBody Store newStore, 
+							HttpServletResponse resp, 
+							HttpServletRequest req) {
 		try {
-			Store createdStore = storeService.createStore(null, storeId, null);
+			Store createdStore = storeService.createStore(newStore);
 			if (createdStore != null) {
 				resp.setStatus(HttpServletResponse.SC_CREATED); //201
 				resp.setHeader("Location", req.getRequestURL().append("/").append(createdStore.getId()).toString());
@@ -73,11 +68,11 @@ public class StoreController {
 	public Store updateStore(@PathVariable("id") int storeId,
 	                            @RequestBody Store updatedStore,
 	                            HttpServletResponse resp) {
-	    updatedStore.setId(storeId); // ensure path ID overrides anything in JSON body
+//	    updatedStore.setId(storeId); // path ID can override anything in JSON body
 	    
 //	    System.out.println("Updating store with storeId: " + storeId);
 
-	    Store result = storeService.updateStore("", storeId, updatedStore);
+	    Store result = storeService.updateStore( storeId, updatedStore);
 
 	    if (result == null) {
 	        resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -85,7 +80,6 @@ public class StoreController {
 
 	    return result;
 	}
-	
 	
 	@DeleteMapping("stores/{id}")
 	public void deleteItem(@PathVariable("id") int id, HttpServletResponse resp) {
