@@ -9,7 +9,7 @@ window.addEventListener('load', function(e) {
 function init() {
 	loadStores();
 	
-	let 
+	
 
 }
 
@@ -64,7 +64,7 @@ function displayStores(storeList) {
 		tr.addEventListener('click', function(e) {
 			e.preventDefault();
 			console.log(e.target.parentElement.storeId)
-			getStoreDetails(storeId);
+			getStoreDetails(store.id);
 			// construct JS object from form input values from film entity ().
 
 		});
@@ -86,8 +86,8 @@ function getStoreDetails(storeId) {
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === xhr.DONE) {
 					if (xhr.status === 200) {
-						let stores = JSON.parse(xhr.responseText);
-						displayStoreDetails(storeObj);
+						let store = JSON.parse(xhr.responseText);
+						displayStoreDetails(store);
 					} else if (xhr.status === 404) {
 						console.error('Store not found, ID = ' + storeId);
 						displayError('Store not found');
