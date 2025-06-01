@@ -14,13 +14,42 @@
 <body>
 
 	<h2>ProxyShop</h2>
-	<h4>Click on a store's logo or name to see its details or add one.
+	<h4>Click on a store's logo or name to see its details below.
 	<!-- In the next page see a list of users or items - Grab that for me! -->
 	 <!-- For each store, see a friend's list or update your own -->
 
 	<!-- open with bootstrap carrosel for the stores -->
 	
 	<button id="showAddStoreBtn" class="btn btn-primary mb-3">Add New Store</button></h4>
+	
+	<div id="addStoreFormDiv" style="display: none">
+		<h3>Don't see the store? Add it here:</h3>
+		<form name="addStoreForm">
+			
+			<input type="hidden" name ="storeId" id="storeId" value="" />
+	
+			<div>
+				<label for="name">Store Name:</label> <br> <input
+					type="text" name="name" id="name" />
+			</div>
+
+			<div>
+				<label for="description">Store Description:</label><br>
+				<textarea name="description" id="description" rows="3" cols=""></textarea>
+			</div>
+
+			<div>
+				<label for="logoImageUrl">Store logo image url:</label><br>
+				<input type="text" name="logoImageUrl" id="logoImageUrl" />
+			</div>
+			
+			<div style="margin-top: 0.5em;">
+				<button type="submit" name="addStoreButton" id="addStoreButton">Add Store</button>
+				<button type="button" id="cancelStoreBtn">Cancel</button>
+			</div>
+		</form>
+	</div>
+	
 	<div id="storesListDiv"></div>
 	<div class="table-responsive">
 		<table class="table table-striped table-hover table-bordered align-middle">
@@ -35,31 +64,8 @@
 		</table>
 	</div>
 
-
-
-
 	<div id="storeDetailDiv"></div>
 
-	<div id="addStoreFormDiv" style="display: none">
-		<h3>Don't see the store above? Add here:</h3>
-		<form name="addStoreForm">
-			<div>
-				<label for="name">Enter Store Name:</label> <br> <input
-					type="text" name="name" id="name" />
-			</div>
-
-			<div>
-				<label for="description">Enter Store Description:</label><br>
-				<textarea name="description" id="description" rows="3" cols=""></textarea>
-			</div>
-
-			<div>
-				<label for="logoImageUrl">Enter Store logo image url:</label><br>
-				<input type="text" name="logoImageUrl" id="logoImageUrl" />
-				<button name="addStoreButton">Add Store</button>
-			</div>
-		</form>
-	</div>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"

@@ -17,6 +17,12 @@ function init() {
 		};
 		addStore(newStore);
 	});
+	document.getElementById("showAddStoreBtn").addEventListener("click", function(e) {
+	  e.preventDefault();
+	  document.getElementById("addStoreFormDiv").style.display = "block";
+	  this.style.display = "none"; // hide the “Add New Store” button while the form is open
+	});
+
 }
 
 function loadStores() {
@@ -107,7 +113,7 @@ function displayStores(storeList) {
 function showStoreTable() {
 	let listDiv = document.getElementById('storeListDiv');
 	let detailsDiv = document.getElementById('storeDetailDiv');
-	let newStoreDiv = document.getElementById('newStoreFormDiv');
+	let newStoreDiv = document.getElementById('addStoreFormDiv');
 }
 
 
@@ -162,6 +168,7 @@ function addStore(store) {
 			if (xhr.status === 201) {
 				let createdStore = JSON.parse(xhr.responseText);
 				loadStores();
+				hideForm();
 			} else {
 				displayError('Could not create store');
 			}
@@ -191,9 +198,9 @@ function deleteStore(storeId) {
 	xhr.send();
 }
 
-function clearFormAfterSave() {
 
-}
-
-
+function hideForm() {
+	document.getElementById('addStoreFormDiv').style.display   = 'none';
+	document.getElementById('showAddStoreBtn').style.display = 'inline-block';
+	}
 
