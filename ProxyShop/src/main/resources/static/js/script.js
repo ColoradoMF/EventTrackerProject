@@ -3,7 +3,6 @@ console.log('script.js loaded');
 window.addEventListener('load', function(e) {
 	console.log('DOM created');
 	init();
-
 });
 
 function init() {
@@ -18,7 +17,6 @@ function init() {
 		};
 		addStore(newStore);
 	});
-
 }
 
 function loadStores() {
@@ -57,11 +55,14 @@ function displayStores(storeList) {
 		tbody.appendChild(tr);
 		let td = document.createElement('td');
 		let img = document.createElement('img');
-		img.src = store.logoImageUrl;
+		img.onerror = () => { img.src = 'https://cloudfront.codeproject.com/testing/1002904/test-url-redirects-httpwebrequest.jpg'; };
+		img.src   = store.logoImageUrl || 'https://cloudfront.codeproject.com/testing/1002904/test-url-redirects-httpwebrequest.jpg';
 		img.alt = 'Image of ' + store.name;
 		img.classList.add('storeThumbnail')
+		td.appendChild(img);
+		
+		td.appendChild(document.createTextNode(' ' + store.name));
 
-		td.textContent = store.name;
 		td.addEventListener('click', function(e) {
 			e.preventDefault();
 			console.log(e.target.parentElement.storeId)
@@ -70,7 +71,7 @@ function displayStores(storeList) {
 
 		});
 		tr.appendChild(td);
-		td.appendChild(img);
+		
 
 		td = document.createElement('td');
 		td.addEventListener('click', function(e) {
@@ -98,10 +99,6 @@ function displayStores(storeList) {
 
 	}
 
-}
-
-function goToStoreDetails() {
-	
 }
 
 function showStoreTable() {
@@ -178,10 +175,7 @@ function deleteStore(storeId) {
 	let url = 'api/stores/' + storeId;
 			let xhr = new XMLHttpRequest();
 			xhr.open('DELETE', url);
-			// use XHR to POST to api/stores
-			// send will be different, go back one page in the material
-			// send JSON version of that object to xhr.send
-			// set
+			// use XHR to DELETE to api/stores with storeId
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState === xhr.DONE) {
 					if (xhr.status === 204) {
@@ -193,3 +187,10 @@ function deleteStore(storeId) {
 			};
 			xhr.send();
 }
+
+function clearFormAfterSave() {
+	
+}
+
+
+
