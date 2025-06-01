@@ -6,3 +6,7 @@ body {
 .storeThumbnail {
 	height: 5vh;
 }
+
+#addStoreFormDiv {
+  display: none;
+}

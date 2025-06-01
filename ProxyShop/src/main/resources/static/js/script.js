@@ -27,14 +27,8 @@ function loadStores() {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === xhr.DONE) {
 			if (xhr.status === 200) {
-
-
 				let stores = JSON.parse(xhr.responseText);
 				displayStores(stores);
-				//console.log(stores);
-			}
-			else {
-				//		
 			}
 		}
 	};
@@ -42,71 +36,66 @@ function loadStores() {
 }
 
 function displayStores(storeList) {
-	//DOM stuff here
 	let tbody = document.getElementById("storeTableBody");
 	if (!Array.isArray(storeList)) {
 		return;
 	}
+	
+	// clear out any previous rows
 	tbody.innerHTML = "";
 
 	for (let store of storeList) {
+		//Create a <tr> and attach to <tbody>
 		let tr = document.createElement('tr');
 		tr.storeId = store.id;
 		tbody.appendChild(tr);
-		let td = document.createElement('td');
+		
+		//store logo in table column
+		let tdLogo = document.createElement('td');
 		let img = document.createElement('img');
 		img.onerror = () => { img.src = 'https://cloudfront.codeproject.com/testing/1002904/test-url-redirects-httpwebrequest.jpg'; };
 		img.src   = store.logoImageUrl || 'https://cloudfront.codeproject.com/testing/1002904/test-url-redirects-httpwebrequest.jpg';
-		img.alt = 'Image of ' + store.name;
+		img.alt = 'Logo image for ' + store.name;
 		img.classList.add('storeThumbnail')
-		td.appendChild(img);
 		
-		td.appendChild(document.createTextNode(' ' + store.name));
-
-		td.addEventListener('click', function(e) {
+		tdLogo.appendChild(img);
+		tdLogo.addEventListener('click', function(e) {
 			e.preventDefault();
 			console.log(e.target.parentElement.storeId)
 			getStoreDetails(store.id);
-			// construct JS object from form input values from film entity ().
-
 		});
-		tr.appendChild(td);
+		tr.appendChild(tdLogo);
 		
-
-		td = document.createElement('td');
-		td.addEventListener('click', function(e) {
+		//name of store in table column 
+		let tdName = document.createElement("td");
+		tdName.textContent = store.name;
+		tdName.addEventListener("click", function (e) {
 			e.preventDefault();
-			console.log(e.target.parentElement.storeId)
 			getStoreDetails(store.id);
-			// construct JS object from form input values from film entity ().
-
 		});
-  		td.textContent = store.location;
-		tr.appendChild(td);
+		tr.appendChild(tdName);
 		
 		//delete button in table for each store
-		td = document.createElement('td');
+		let tdDelete = document.createElement('td');
 		let button = document.createElement('button');
 		button.name = "Delete";
-		button.textContent = "Delete Store";
-		td.appendChild(button); 
+		button.textContent = "Remove Store";
 		button.addEventListener('click', function(evt) {
 			evt.preventDefault();
 			deleteStore(store.id);
 		})
-		tr.appendChild(td);
-
-
+		tdDelete.appendChild(button); 
+		tr.appendChild(tdDelete);
 	}
-
 }
+
 
 function showStoreTable() {
 	let listDiv = document.getElementById('storeListDiv');
 	let detailsDiv = document.getElementById('storeDetailDiv');
 	let newStoreDiv = document.getElementById('newStoreFormDiv');
-	
 }
+
 	
 function getStoreDetails(storeId) {
 	let url = 'api/stores/' + storeId;
