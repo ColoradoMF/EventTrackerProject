@@ -22,6 +22,11 @@ function init() {
 	  document.getElementById("addStoreFormDiv").style.display = "block";
 	  this.style.display = "none"; // hide the “Add New Store” button while the form is open
 	});
+	
+	document.getElementById("cancelStoreBtn").addEventListener("click", function(e) {
+	    e.preventDefault();
+	    hideForm();
+	  });
 
 }
 
@@ -200,6 +205,10 @@ function deleteStore(storeId) {
 
 
 function hideForm() {
+	addStoreForm.name.value = "";
+	addStoreForm.description.value = "";
+	addStoreForm.logoImageUrl.value = "";
+	
 	document.getElementById('addStoreFormDiv').style.display   = 'none';
 	document.getElementById('showAddStoreBtn').style.display = 'inline-block';
 	}
