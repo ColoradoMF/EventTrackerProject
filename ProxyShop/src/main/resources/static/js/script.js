@@ -255,23 +255,27 @@ function openEditForm(storeId) {
 
 
 function populateEditForm(store) {
-	// 1) Show the editFormDiv, hide the “Add New Store” button:
+	// Hide the store details
+	document.getElementById('storeDetailDiv').style.display = 'none';
+	
+	// Show the editFormDiv, hide the “Add New Store” button:
 	document.getElementById('editStoreFormDiv').style.display = 'block';
 	document.getElementById('showAddStoreBtn').style.display = 'none';
 
-	// 2) Fill in each field:
+	// Fill in each field:
 	editStoreForm.editStoreId.value = store.id;            // hidden ID
 	editStoreForm.name.value = store.name;
 	editStoreForm.description.value = store.description;
 	editStoreForm.logoImageUrl.value = store.logoImageUrl;
 
-	// 3) (Optionally) clear out the “Add New Store” form if open:
+	// Clear out the “Add New Store” form if open:
 	addStoreForm.name.value = '';
 	addStoreForm.description.value = '';
 	addStoreForm.logoImageUrl.value = '';
+	
 }
 
-// ─── “Cancel” helper to hide the edit form and re-show “Add New Store”:
+	// “Cancel” helper to hide the edit form and re-show “Add New Store”:
 function hideEditForm() {
 	// 1) Reset fields
 	editStoreForm.editStoreId.value = '';
@@ -282,10 +286,10 @@ function hideEditForm() {
 	// 2) Hide the edit‐form container, re‐show “Add New Store” button:
 	document.getElementById('editStoreFormDiv').style.display = 'none';
 	document.getElementById('showAddStoreBtn').style.display = 'inline-block';
+	
+	document.getElementById('storeDetailDiv').style.display = 'block';
 }
 
-// ────────────────────────────────────────────────────────────────
-// ③ Send an HTTP PUT to update store on the server (adjust endpoint as needed):
 function updateStore(store) {
 	const url = 'api/stores/' + store.id;
 	const xhr = new XMLHttpRequest();
