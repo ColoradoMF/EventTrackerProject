@@ -1,0 +1,59 @@
+<!-- <p>store-list works!</p> -->
+<hr>
+<h1>{{title}}</h1><br>
+<h3>Store list
+  <button
+    class="btn btn-sm btn-primary ms-2"
+    (click)="toggleAddForm()"
+  >
+    {{ showAddForm ? 'Cancel' : 'Add Store' }}
+  </button>
+</h3>
+<hr>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Store Logo</th>
+        <th>Store Name</th>
+        <!-- <th>I shop here:</th> -->
+        <th>Store Actions</th></tr>
+    </thead>
+    <tbody>
+      @for (store of stores; track store.id) {
+        <tr>
+          <td><img [src]="store.logoImageUrl" alt="" width="50"></td>
+
+          <td>{{store.name}}</td>
+
+          <!-- <td><input type="checkbox" name="preferred"></td> -->
+
+          <td>
+            <button class="btn btn-sm btn-info"
+                    (click)="toggleDetails(store)">
+                    {{selected?.id === store.id ? 'Hide Details' : 'Show Details'}}
+            </button>
+           </td>
+        </tr>
+
+        @if (selected?.id === store.id) {
+          <tr>
+            <td colspan="3">
+              <div><strong>Description:</strong> {{ store.description }} </div>
+            </td>
+          </tr>
+        }
+      }
+      @empty {
+        <tr><td colspan="3">No stores found.</td></tr>
+      }
+    </tbody>
+  </table>
+
+@if (selected) {
+  <div>
+    <h2>{{selected.name}}</h2>
+    <img [src]="selected.logoImageUrl" alt="" width="50">
+  </div>
+}
+
