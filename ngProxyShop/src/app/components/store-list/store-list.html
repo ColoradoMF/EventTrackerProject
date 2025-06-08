@@ -11,7 +11,41 @@
 </h3>
 <hr>
 
-  <table class="table table-striped">
+@if (showAddForm) {
+  <form class="row g-2 mb-3" (ngSubmit)="addStore()">
+    <div class="col-auto">
+      <input class="form-control"
+             placeholder="Name"
+             [(ngModel)]="newStore.name"
+             name="name"
+             required
+      />
+    </div>
+    <br>
+    <div class="col-auto">
+      <input class="form-control"
+      placeholder="Description"
+      [(ngModel)]="newStore.description"
+      name="description"
+      />
+
+    </div>
+    <div class="col-auto">
+      <input class="form-control"
+        placeholder="Logo URL"
+        [(ngModel)]="newStore.logoImageUrl"
+        name="logoImageUrl"
+      />
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-success" type="submit">
+        Create
+      </button>
+    </div>
+  </form>
+}
+
+<table class="table table-striped">
     <thead>
       <tr>
         <th>Store Logo</th>
@@ -20,7 +54,7 @@
         <th>Store Actions</th></tr>
     </thead>
     <tbody>
-      @for (store of stores; track store.id) {
+      @for ( store of stores; track store.id) {
         <tr>
           <td><img [src]="store.logoImageUrl" alt="" width="50"></td>
 
@@ -31,7 +65,18 @@
           <td>
             <button class="btn btn-sm btn-info"
                     (click)="toggleDetails(store)">
-                    {{selected?.id === store.id ? 'Hide Details' : 'Show Details'}}
+                    {{selected?.id === store.id ? 'Hide Details' : 'Details'}}
+            </button>
+            <button class="btn btn-sm btn-warning ms-1"
+                    (click)="setEditStore(store); $event.stopPropagation()"
+                    >
+                    Edit
+            </button>
+            <button
+              class="btn btn-sm btn-danger ms-1"
+              (click)="deleteStore(store.id); $event.stopPropagation()"
+            >
+              Delete
             </button>
            </td>
         </tr>
@@ -55,5 +100,47 @@
     <h2>{{selected.name}}</h2>
     <img [src]="selected.logoImageUrl" alt="" width="50">
   </div>
+}
+
+@if (editStore) {
+  <form
+    #editForm="ngForm"
+    class="mb-3 row g-2"
+    (ngSubmit)="updateStore()"
+    >
+    <div class="col-auto">
+    <input
+      class="form-control"
+      [(ngModel)]="editStore.name"
+      name="editName"
+      required
+    />
+    </div>
+    <div class="col-auto">
+      <input
+        class="form-control"
+        [(ngModel)]="editStore.logoImageUrl"
+        name="editLogo"
+      />
+    </div>
+    <div class="col-auto">
+      <input
+        class="form-control"
+        [(ngModel)]="editStore.description"
+        name="editDesc"
+      />
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-primary" type="submit">
+        Save
+      </button>
+      <button class="btn btn-outline-secondary"
+              type="button"
+              (click)="editStore = null"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
 }
 

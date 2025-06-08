@@ -26,14 +26,21 @@ export class StoreService {
     );
   }
 
-  // show(id: number): Observable<Store> {
-  //   return this.http.get<Store>(`${this.baseUrl}/${id}`)
-  //     .pipe(catchError(this.handleError('show')));
-  // }
+  show(id: number): Observable<Store> {
+    return this.http.get<Store>(`${this.baseUrl}/${id}`)
+  }
 
   create(store: Store): Observable<Store> {
     return this.http.post<Store>(this.baseUrl, store);
-      // .pipe(catchError(this.handleError('create')));
+  }
+
+  update(store: Store): Observable<Store> {
+    return this.http.put<Store>(`${this.baseUrl}/${store.id}`, store)
+    .pipe(catchError(this.handleError('update')));
+  }
+
+  delete(id:number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`)
   }
 
  private handleError(method: string) {

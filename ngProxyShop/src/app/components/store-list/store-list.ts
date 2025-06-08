@@ -46,25 +46,52 @@ export class StoreList implements OnInit {
     this.selected = null;
   }
 
-toggleDetails(store: Store): void {
-  this.selected = this.selected?.id === store.id ? null : store;
-}
+  toggleDetails(store: Store): void {
+    this.selected = this.selected?.id === store.id ? null : store;
+  }
 
-toggleAddForm(): void {
-  this.showAddForm = !this.showAddForm;
-  this.selected = null;
-  this.editStore = null;
-}
+  toggleAddForm(): void {
+    this.showAddForm = !this.showAddForm;
+    this.selected = null;
+    this.editStore = null;
+  }
 
-addStore(): void {
-  this.storeService.create(this.newStore).subscribe({
-    next: () => {
-      this.loadStores();
-      this.newStore = new Store();
-      this.showAddForm = false;
-    },
-    error: err => console.error('Error creating store', err)
-  });
-}
+  addStore(): void {
+    this.storeService.create(this.newStore).subscribe({
+      next: () => {
+        this.loadStores();
+        this.newStore = new Store();
+        this.showAddForm = false;
+      },
+      error: err => console.error('Error creating store', err)
+    });
+  }
+
+  setEditStore(store: Store): void {
+    console.log('Editing store', store);
+    this.editStore    = { ...store }; // shallow copy
+    this.selected     = null;         // hide details
+    this.showAddForm  = false;        // hide add form
+  }
+
+  updateStore(): void {
+    if (!this.editStore) return;
+    this.storeService.update(this.editStore).subscribe({
+      next: () => {
+        this.loadStores();
+        this.editStore = null;
+      },
+      error: err => console.error('StoreList.updateStore():', err)
+    });
+  }
+
+  deleteStore(id: number): void {
+    this.storeService.delete(id).subscribe({
+      next: () => this.loadStores(),
+      error: err => console.error('StoreList.deleteStore():', err)
+    });
+  }
+
+
 
 }
