@@ -3,6 +3,7 @@ package com.skilldistillery.proxyshop.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import com.skilldistillery.proxyshop.services.StoreService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+@CrossOrigin({"*", "http://localhost/"})
 @RestController
 @RequestMapping("api")
 public class StoreController {
@@ -38,10 +40,6 @@ public class StoreController {
 	@GetMapping("stores")
 	public List<Store> getAllStores(HttpServletResponse resp) {
 	    List<Store> stores = storeService.findAll();
-	    if (stores == null || stores.isEmpty()) {
-	        // return 204 when there are no stores
-	        resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
-	    }
 	    return stores;
 	}
 

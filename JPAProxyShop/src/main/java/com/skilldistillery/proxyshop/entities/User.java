@@ -9,6 +9,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -29,6 +32,15 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private List<ItemToBuy> itemsToBuy;
+	
+	@ManyToMany
+	@JoinTable(
+		    name = "user_store",
+		    joinColumns =  @JoinColumn(name = "user_id"),
+		    inverseJoinColumns = @JoinColumn(name = "store_id")
+		  )
+	@JsonIgnore
+	private List<Store> stores;
 
 	public User() {
 		super();

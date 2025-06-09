@@ -75,6 +75,30 @@ CREATE TABLE IF NOT EXISTS `item_to_buy` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `user_preferred_store`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `user_preferred_store` ;
+
+CREATE TABLE IF NOT EXISTS `user_preferred_store` (
+  `user_id` INT NOT NULL,
+  `store_id` INT NOT NULL,
+  PRIMARY KEY (`user_id`, `store_id`),
+  INDEX `fk_user_has_store_store1_idx` (`store_id` ASC) VISIBLE,
+  INDEX `fk_user_has_store_user1_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_user_has_store_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_store_store1`
+    FOREIGN KEY (`store_id`)
+    REFERENCES `store` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 SET SQL_MODE = '';
 DROP USER IF EXISTS proxyshop@localhost;
 SET SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -91,11 +115,11 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `proxyshopdb`;
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (1, 'mike', 'mike', 1, NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (2, 'rob', 'rob', 1, NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (3, 'matt', 'matt', 1, NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (4, 'mark', 'mark', 1, NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (5, 'murk', 'murk', 1, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (1, 'mike', 'mike', 1, '1');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (2, 'rob', 'rob', 1, '2');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (3, 'matt', 'matt', 1, '2');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (4, 'mark', 'mark', 1, '2');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (5, 'murk', 'murk', 1, '2');
 
 COMMIT;
 
@@ -109,6 +133,7 @@ INSERT INTO `store` (`id`, `name`, `logo_image_url`, `description`) VALUES (1, '
 INSERT INTO `store` (`id`, `name`, `logo_image_url`, `description`) VALUES (2, 'Costco', 'https://bfasset.costco-static.com/56O3HXZ9/at/wkgcrwxgt5bt39wg63kgmqr/Costco-Logo-Registered.png?auto=webp&format=jpg', 'Big stuff');
 INSERT INTO `store` (`id`, `name`, `logo_image_url`, `description`) VALUES (3, 'Sam\'s Club', 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Sams_Club.svg', 'Bigger stuff');
 INSERT INTO `store` (`id`, `name`, `logo_image_url`, `description`) VALUES (4, 'BJ\'s Wholesale', 'https://upload.wikimedia.org/wikipedia/commons/4/48/BJs_Wholesale_Club_Logo.svg', 'Biggest stuff');
+INSERT INTO `store` (`id`, `name`, `logo_image_url`, `description`) VALUES (5, 'Tony\'s Meats & Market', 'https://www.castlepinesconnection.com/images/directory/tonyslogo2018.jpg', 'Gourmet stuff');
 
 COMMIT;
 
@@ -118,10 +143,24 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `proxyshopdb`;
-INSERT INTO `item_to_buy` (`id`, `sku`, `user_id`, `store_id`, `name`, `description`, `image_url`, `last_purchased`, `needed`) VALUES (1, '12', 1, 1, 'Textured Vegetable Protien', 'Bob\'s Red Mill TVP', 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcT0bjwnjtcsJmHWYXnh3Ipc6xZG7QNX1n4yd96yYZdVKziqeHQgWiPhl8oX_s2D2H-tcJSIGUL9PQkzHjy_CSyvK3tcT4Zs7YRDvl_3wU9N-m_aLxx_mFsq', NULL, 1);
-INSERT INTO `item_to_buy` (`id`, `sku`, `user_id`, `store_id`, `name`, `description`, `image_url`, `last_purchased`, `needed`) VALUES (2, '12345', 2, 2, '55 gallon drum of Mayo', 'Industrial strength', 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcT-G4q81ovB72i7wFRIIe6CzCbb4V0CHKB2vwqTFgYyV1QFSUwg6hLmVCWsm87NeCZewLJcG6BwLYqiM3ngJmGCcVjWrsoU8rQ3r5f_FVNF7JiAH3NT2eJV3ZyeNzML64NAwe4CaYJuF7Q&usqp=CAc', NULL, 1);
-INSERT INTO `item_to_buy` (`id`, `sku`, `user_id`, `store_id`, `name`, `description`, `image_url`, `last_purchased`, `needed`) VALUES (3, '123', 4, 3, 'Thai Hom Mali rice', '25 lbs.', 'https://scene7.samsclub.com/is/image/samsclub/0019396814809_A', NULL, 1);
-INSERT INTO `item_to_buy` (`id`, `sku`, `user_id`, `store_id`, `name`, `description`, `image_url`, `last_purchased`, `needed`) VALUES (4, '1234', 3, 2, 'Sumatran Coffee', '3 lbs.', 'https://m.media-amazon.com/images/I/81nLJX6pRvL.jpg', NULL, 1);
+INSERT INTO `item_to_buy` (`id`, `sku`, `user_id`, `store_id`, `name`, `description`, `image_url`, `last_purchased`, `needed`) VALUES (1, '12', 4, 1, 'Textured Vegetable Protien', 'Just like ground beef', 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcT0bjwnjtcsJmHWYXnh3Ipc6xZG7QNX1n4yd96yYZdVKziqeHQgWiPhl8oX_s2D2H-tcJSIGUL9PQkzHjy_CSyvK3tcT4Zs7YRDvl_3wU9N-m_aLxx_mFsq', NULL, NULL);
+INSERT INTO `item_to_buy` (`id`, `sku`, `user_id`, `store_id`, `name`, `description`, `image_url`, `last_purchased`, `needed`) VALUES (2, '12345', 2, 2, '55 gallon drum of Mayo', 'Industrial size', 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcT-G4q81ovB72i7wFRIIe6CzCbb4V0CHKB2vwqTFgYyV1QFSUwg6hLmVCWsm87NeCZewLJcG6BwLYqiM3ngJmGCcVjWrsoU8rQ3r5f_FVNF7JiAH3NT2eJV3ZyeNzML64NAwe4CaYJuF7Q&usqp=CAc', NULL, NULL);
+INSERT INTO `item_to_buy` (`id`, `sku`, `user_id`, `store_id`, `name`, `description`, `image_url`, `last_purchased`, `needed`) VALUES (3, '123', 1, 3, 'Thai Hom Mali Rice', '25 lbs.', 'https://scene7.samsclub.com/is/image/samsclub/0019396814809_A', NULL, NULL);
+INSERT INTO `item_to_buy` (`id`, `sku`, `user_id`, `store_id`, `name`, `description`, `image_url`, `last_purchased`, `needed`) VALUES (4, '1234', 3, 2, 'Sumatran Coffee', '3 lbs.', 'https://m.media-amazon.com/images/I/81nLJX6pRvL.jpg', NULL, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `user_preferred_store`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `proxyshopdb`;
+INSERT INTO `user_preferred_store` (`user_id`, `store_id`) VALUES (1, 3);
+INSERT INTO `user_preferred_store` (`user_id`, `store_id`) VALUES (2, 1);
+INSERT INTO `user_preferred_store` (`user_id`, `store_id`) VALUES (3, 2);
+INSERT INTO `user_preferred_store` (`user_id`, `store_id`) VALUES (4, 5);
+INSERT INTO `user_preferred_store` (`user_id`, `store_id`) VALUES (5, 4);
 
 COMMIT;
 

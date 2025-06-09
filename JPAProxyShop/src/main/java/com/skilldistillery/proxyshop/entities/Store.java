@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -24,6 +25,10 @@ public class Store {
 	@OneToMany(mappedBy = "store")
 	@JsonIgnore
 	private List<ItemToBuy> itemsToBuy;
+	
+	@ManyToMany(mappedBy = "stores")
+	@JsonIgnore
+	private List<User> users;
 	
 	@Column(name = "logo_image_url")
 	private String logoImageUrl;

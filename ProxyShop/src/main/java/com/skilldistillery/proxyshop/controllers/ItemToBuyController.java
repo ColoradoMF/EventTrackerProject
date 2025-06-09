@@ -1,6 +1,9 @@
 package com.skilldistillery.proxyshop.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +22,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("api")
+@CrossOrigin({"*", "http://localhost/"})
 public class ItemToBuyController {
 	
 	@Autowired
@@ -34,6 +38,12 @@ public class ItemToBuyController {
 			resp.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
 		}
 		return itemToBuy;
+	}
+	
+	@GetMapping("items")
+	public List<ItemToBuy> getAllItemsToBuy(HttpServletResponse resp) {
+		List<ItemToBuy> itemsToBuy = itemToBuyService.findAll();
+		return itemsToBuy;
 	}
 	
 	@PostMapping("items")
