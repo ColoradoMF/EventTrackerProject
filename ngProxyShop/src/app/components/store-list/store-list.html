@@ -56,7 +56,7 @@
     <tbody>
       @for ( store of stores; track store.id) {
         <tr>
-          <td><img [src]="store.logoImageUrl" alt="" width="50"></td>
+          <td><img [src]="store.logoImageUrl || 'https://cloudfront.codeproject.com/testing/1002904/test-url-redirects-httpwebrequest.jpg'" alt="" width="50"></td>
 
           <td>{{store.name}}</td>
 
